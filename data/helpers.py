@@ -7,7 +7,7 @@ import random
 from pathlib import Path
 from pynput.keyboard import Controller as K
 
-from .values import op
+from .values import op, getTm
 
 k = K()
 
@@ -63,29 +63,6 @@ def read_file(file_path):
         return None
 
 
-# ===================================< PATH MTIME
-# folder_path - to check mtime for
-def dir_mtime(folder_path):
-    newest = 0
-
-    for root, dirs, files in os.walk(folder_path):
-        try:
-            newest = max(newest, os.path.getmtime(root))
-        except OSError:
-            pass;
-
-        for file in files:
-            path = os.path.join(root, file)
-            try:
-                mtime = os.path.getmtime(path)
-                if mtime > newest:
-                    newest = mtime
-            except OSError:
-                pass
-
-    return newest
-
-
 # ===================================< CONFIG PARSER
 # string - to pars in to config
 def config_parse(string):
@@ -122,3 +99,33 @@ def config_parse_reread(string):
 
 def unicode_convert(unicode):
     return chr(int(unicode[2:], 16))
+
+
+# ===================================< VERIFY SELECTED (qi)
+def verify_selected():
+    qi = op['qi']
+    tm = getTm()
+
+    slc_var = qi['.selected']
+    new_slc = tm[slc_var]
+
+    if tm and len(tm) > slc_var >= 0:
+        if qi['selected'] != new_slc:
+            qi['selected'] = new_slc
+    else:
+        qi['.selected'] = 0
+
+        if not tm:
+            qi['selected'] = 'Hello beautiful'
+        else:
+            qi['selected'] = new_slc
+
+
+# ===================================< STATE OF X (qi)
+def state_of(x):
+    tm = getTm()
+
+    if not tm or not isinstance(x, int):
+        return None
+
+    return x % len(tm)

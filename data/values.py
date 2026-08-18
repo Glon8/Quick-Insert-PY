@@ -1,3 +1,7 @@
+_TEMPLATE = [
+    'Hello beautiful',
+]
+
 _OPERATIONS = {
     'gnr': {
         'name': 'General',
@@ -15,11 +19,13 @@ _OPERATIONS = {
     'qi': {
         'name': 'Quick Insert',
         'note': 'Remember to set Kill Switch on before use!',
+        '.selected': 0,
         'selected': '',
         'key_scroll_up': 'c+[',
         'key_scroll_down': 'c+]',
         'key_trigger': 'c+3',
         'key_action': 't',
+        'random_selection': 0,
         'stat': 0,
     },
 }
@@ -27,3 +33,14 @@ _OPERATIONS = {
 _SEPERATOR = f"===========================<"
 
 op = _OPERATIONS
+
+
+def getTm():
+    return _TEMPLATE
+
+
+def setTm(value):
+    global _TEMPLATE
+
+    if isinstance(value, list) and value:
+        _TEMPLATE = value

@@ -1,8 +1,6 @@
-import os.path
-
 from .visuals import render
-from .values import op
-from .helpers import switch, read_file, key_press, getDir
+from .values import op, getTm
+from .helpers import switch, key_press, verify_selected
 
 from pynput.keyboard import Key
 
@@ -19,25 +17,22 @@ def qi_switch():
 
 def qi_prot():
     qi = op['qi']
-    path = os.path.join(getDir(), 'templates.json')
-    text = None
+    slc = qi['selected']
+    stt = qi['stat']
 
-    if os.path.exists(path):
-        text = read_file('templates.json')
-    else:
-        with open(path, 'w') as file:
-            pass
+    if slc != getTm()[qi['.selected']]:
+        verify_selected()
 
-    if text is None or text == '':
-        text = 'Hello There!'
+    if slc == None or slc == '':
+        qi['selected'] = 'Hello beautiful'
 
-    if qi['stat']:
+    if stt:
         render()
 
         key_press(qi['key_action'], 178, 250)
 
-        for char in text:
-            if qi['stat'] == 0:
+        for char in slc:
+            if stt == 0:
                 break
 
             key_press(char, 178, 250)

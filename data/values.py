@@ -1,5 +1,6 @@
 _TEMPLATE = [
     'Hello beautiful',
+    'Looking extra sharp today',
 ]
 
 _OPERATIONS = {

@@ -1,8 +1,9 @@
 from data.helpers import config_parse, read_file
-from data.values import op
+from data.values import op, getTm
 from data.quick_insert import qi_prot, qi_switch
 from data.visuals import render
 from data.killswitch import ks_switch
+from data.selection import scroll_up, scroll_down
 
 from pynput.keyboard import Controller as K, Listener as kL, HotKey
 
@@ -18,14 +19,19 @@ def control_panel():
 
 # ===================================< MAIN
 def main():
-    config_parse(read_file('config.json'))
-
     qi = op['qi']
+    tm = getTm()
+
+    qi['selected'] = tm[qi['.selected']]
+
+    config_parse(read_file('config.json'))
 
     # \/===================================< HOTKEYS SETTINGS
     hotkeys = [
         HotKey(HotKey.parse(op['ks']['key_trigger']), ks_switch),
         HotKey(HotKey.parse(qi['key_trigger']), qi_switch),
+        HotKey(HotKey.parse(qi['key_scroll_up']), scroll_up),
+        HotKey(HotKey.parse(qi['key_scroll_down']), scroll_down),
     ]
 
     def on_press(key):

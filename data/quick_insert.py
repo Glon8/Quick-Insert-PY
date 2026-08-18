@@ -1,6 +1,7 @@
 from .visuals import render
 from .values import op, getTm
 from .helpers import switch, key_press, verify_selected
+from .selection import random_selection
 
 from pynput.keyboard import Key
 
@@ -11,17 +12,16 @@ def qi_switch():
 
     switch(op['qi'], 'stat')
 
-    if ks:
-        render()
-
 
 def qi_prot():
     qi = op['qi']
     slc = qi['selected']
     stt = qi['stat']
 
-    if slc != getTm()[qi['.selected']]:
+    if slc != getTm()[qi['.selected']] and not qi['random_selection']:
         verify_selected()
+    elif qi['random_selection']:
+        random_selection()
 
     if slc == None or slc == '':
         qi['selected'] = 'Hello beautiful'

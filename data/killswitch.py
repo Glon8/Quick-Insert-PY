@@ -27,5 +27,7 @@ def ks_switch():
             write_file(getDir(), 'templates.json', getTm())
 
         verify_selected()
+    else:
+        write_file(getDir(), 'templates.json', getTm())
 
     render()

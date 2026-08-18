@@ -15,6 +15,9 @@ _OPERATIONS = {
     'qi': {
         'name': 'Quick Insert',
         'note': 'Remember to set Kill Switch on before use!',
+        'selected': '',
+        'key_scroll_up': 'c+[',
+        'key_scroll_down': 'c+]',
         'key_trigger': 'c+3',
         'key_action': 't',
         'stat': 0,

@@ -27,12 +27,7 @@ def render():
             if not att.startswith('.'):
                 if att == 'name':
                     console.print(_SEPERATOR + ' ' + str(stat))
-                elif att == 'key_action' or att == 'key_trigger' or att == 'note' or att == 'display':
+                elif att == 'key_action' or att == 'key_trigger' or att == 'key_scroll_up' or att == 'key_scroll_down' or att == 'selected' or att == 'note' or att == 'display':
                     console.print(f"{att} : {stat}")
-                elif att == 'backup_time':
-                    if stat == -1:
-                        console.print(f"{att} : {stat}")
-                    else:
-                        console.print(f"{att} : {time.ctime(stat)}")
                 else:
                     console.print(f"{att} : {pos if stat else neg}")

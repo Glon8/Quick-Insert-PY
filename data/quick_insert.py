@@ -19,11 +19,11 @@ def qi_switch():
 
 def qi_prot():
     qi = op['qi']
-    path = os.path.join(getDir(), 'templates.md')
+    path = os.path.join(getDir(), 'templates.json')
     text = None
 
     if os.path.exists(path):
-        text = read_file('templates.md')
+        text = read_file('templates.json')
     else:
         with open(path, 'w') as file:
             pass

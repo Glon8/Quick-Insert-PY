@@ -73,9 +73,18 @@ def config_parse(string):
 
     config_pack = json.loads(string)
 
+    copy_op = copy.deepcopy(op)
+    copy_op['ks'].pop('stat')
+
+    copy_conf = copy.deepcopy(config_pack)
+    copy_conf['ks'].pop('stat')
+
+    if copy_op == copy_conf:
+        return
+
     for name, value in config_pack.items():
         for key, val in value.items():
-            if key != 'name' or name == 'ks':
+            if key != 'name' and name != 'ks':
                 op[name][key] = val
 
 
@@ -96,8 +105,8 @@ def config_parse_reread(string):
     if copy_op == copy_conf:
         return
 
-    valid_keys = ['display', '.positive_emoji', '.negative_emoji', 'key_trigger', 'path_from', 'path_to',
-                  'self_replace']
+    valid_keys = ['display', '.positive_emoji', '.negative_emoji', 'key_trigger', 'key_action',
+                  'random_selection', '.selected']
 
     for name, value in config_pack.items():
         for key, val in value.items():
@@ -105,6 +114,7 @@ def config_parse_reread(string):
                 op[name][key] = val
 
     verify_selected()
+
 
 # ===================================< UNICODE CONVERT
 

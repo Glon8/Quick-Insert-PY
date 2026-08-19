@@ -13,8 +13,6 @@ def ks_switch():
 
     switch(ks, 'stat')
 
-    render()
-
     if ks['stat']:
         config_parse_reread(read_file('config.json'))
 
@@ -29,8 +27,7 @@ def ks_switch():
 
         if not content:
             write_file(getDir(), 'templates.json', getTm())
-
-
-
     else:
         write_file(getDir(), 'config.json', op)
+
+    render()

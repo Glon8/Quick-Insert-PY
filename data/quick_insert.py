@@ -10,9 +10,7 @@ _SOFT_LOCK = False
 
 # ===================================< QUICK INSERT
 def qi_switch():
-    ks = op['ks']['stat']
-
-    if ks:
+    if op['ks']['stat']:
         switch(op['qi'], 'stat')
 
 
@@ -52,6 +50,6 @@ def qi_prot():
 
     qi['stat'] = 0
 
-    render()
-
     _SOFT_LOCK = False
+
+    render()

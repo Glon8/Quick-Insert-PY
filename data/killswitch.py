@@ -13,22 +13,24 @@ def ks_switch():
 
     switch(ks, 'stat')
 
+    render()
+
     if ks['stat']:
         config_parse_reread(read_file('config.json'))
 
         content = read_file('templates.json')
 
-        if content:
+        if content and getTm() != content:
             try:
                 setTm(json.loads(content))
+                verify_selected()
             except json.JSONDecodeError:
                 write_file(getDir(), 'templates.json', getTm())
-        else:
+
+        if not content:
             write_file(getDir(), 'templates.json', getTm())
 
-        verify_selected()
+
 
     else:
         write_file(getDir(), 'config.json', op)
-
-    render()

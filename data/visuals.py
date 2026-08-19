@@ -34,7 +34,8 @@ def render():
                       att == 'key_random_selection' or
                       att == 'selected' or
                       att == 'note' or
-                      att == 'display'):
+                      att == 'display' or
+                      att == 'key_display_change'):
                     console.print(f"{att} : {stat}")
                 else:
                     console.print(f"{att} : {pos if stat else neg}")

@@ -1,3 +1,4 @@
+import copy
 import os
 import sys
 import json
@@ -74,7 +75,7 @@ def config_parse(string):
 
     for name, value in config_pack.items():
         for key, val in value.items():
-            if key != 'name':
+            if key != 'name' or name == 'ks':
                 op[name][key] = val
 
 
@@ -86,14 +87,24 @@ def config_parse_reread(string):
 
     config_pack = json.loads(string)
 
+    copy_op = copy.deepcopy(op)
+    copy_op['ks'].pop('stat')
+
+    copy_conf = copy.deepcopy(config_pack)
+    copy_conf['ks'].pop('stat')
+
+    if copy_op == copy_conf:
+        return
+
     valid_keys = ['display', '.positive_emoji', '.negative_emoji', 'key_trigger', 'path_from', 'path_to',
                   'self_replace']
 
     for name, value in config_pack.items():
         for key, val in value.items():
-            if key in valid_keys and op[name][key] != val:
+            if key in valid_keys and op[name][key] != val and name != 'ks':
                 op[name][key] = val
 
+    verify_selected()
 
 # ===================================< UNICODE CONVERT
 

@@ -7,6 +7,7 @@ _OPERATIONS = {
     'gnr': {
         'name': 'General',
         'note': "Display is either 'emoji' or 'plain'",
+        'key_display_change': 'c+o',
         'display': 'plain',
         '.positive_emoji': "U+2705",
         '.negative_emoji': "U+274C"

@@ -4,6 +4,7 @@ from data.quick_insert import qi_prot, qi_switch
 from data.visuals import render
 from data.killswitch import ks_switch
 from data.selection import scroll_up, scroll_down, random_switch
+from data.display import display_switch
 
 from pynput.keyboard import Controller as K, Listener as kL, HotKey
 
@@ -28,6 +29,7 @@ def main():
 
     # \/===================================< HOTKEYS SETTINGS
     hotkeys = [
+        HotKey(HotKey.parse(op['gnr']['key_display_change']), display_switch),
         HotKey(HotKey.parse(op['ks']['key_trigger']), ks_switch),
         HotKey(HotKey.parse(qi['key_trigger']), qi_switch),
         HotKey(HotKey.parse(qi['key_scroll_up']), scroll_up),

@@ -3,7 +3,7 @@ from data.values import op, getTm
 from data.quick_insert import qi_prot, qi_switch
 from data.visuals import render
 from data.killswitch import ks_switch
-from data.selection import scroll_up, scroll_down
+from data.selection import scroll_up, scroll_down, random_switch
 
 from pynput.keyboard import Controller as K, Listener as kL, HotKey
 
@@ -32,6 +32,7 @@ def main():
         HotKey(HotKey.parse(qi['key_trigger']), qi_switch),
         HotKey(HotKey.parse(qi['key_scroll_up']), scroll_up),
         HotKey(HotKey.parse(qi['key_scroll_down']), scroll_down),
+        HotKey(HotKey.parse(qi['key_random_selection']), random_switch),
     ]
 
     def on_press(key):

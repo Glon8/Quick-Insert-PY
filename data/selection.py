@@ -2,7 +2,7 @@ import random
 
 from .visuals import render
 from .values import op, getTm
-from .helpers import state_of
+from .helpers import state_of, switch
 
 
 # ===================================< SCROLL
@@ -12,7 +12,7 @@ def scroll(dir):
     if dir not in ('up', 'down') or not op['ks']['stat'] or qi['random_selection']:
         return
 
-    pointer = 1 if dir is 'up' else -1
+    pointer = 1 if dir == 'up' else -1
 
     tm = getTm()
     # scrolling
@@ -45,6 +45,16 @@ def scroll_down():
     scroll('down')
 
 
+# ===================================< RANDOM SWITCH
+def random_switch():
+    if not op['ks']['stat']:
+        return
+
+    switch(op['qi'], 'random_selection')
+
+    render()
+
+
 # ===================================< RANDOM SELECTION
 def random_selection():
     qi = op['qi']
@@ -54,4 +64,5 @@ def random_selection():
 
     tm = getTm()
 
-    qi['.selected'] = random.randint(0, len(tm))
+    qi['.selected'] = random.randint(0, len(tm) - 1)
+    qi['selected'] = tm[qi['.selected']]

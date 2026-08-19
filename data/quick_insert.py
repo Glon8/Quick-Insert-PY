@@ -5,40 +5,53 @@ from .selection import random_selection
 
 from pynput.keyboard import Key
 
+_SOFT_LOCK = False
+
 
 # ===================================< QUICK INSERT
 def qi_switch():
     ks = op['ks']['stat']
 
-    switch(op['qi'], 'stat')
+    if ks:
+        switch(op['qi'], 'stat')
 
 
 def qi_prot():
-    qi = op['qi']
-    slc = qi['selected']
-    stt = qi['stat']
+    global _SOFT_LOCK
 
-    if slc != getTm()[qi['.selected']] and not qi['random_selection']:
+    qi = op['qi']
+
+    if not qi['stat'] or _SOFT_LOCK:
+        return
+
+    _SOFT_LOCK = True
+
+    tm = getTm()
+
+    if len(tm) < qi['.selected'] or qi['selected'] != getTm()[qi['.selected']] and not qi['random_selection']:
         verify_selected()
     elif qi['random_selection']:
         random_selection()
 
+        render()
+
+    slc = qi['selected']
+
     if slc == None or slc == '':
         qi['selected'] = 'Hello beautiful'
 
-    if stt:
-        render()
+    key_press(qi['key_action'], 178, 250)
 
-        key_press(qi['key_action'], 178, 250)
+    for char in slc:
+        if qi['stat'] == 0:
+            break
 
-        for char in slc:
-            if stt == 0:
-                break
+        key_press(char, 178, 250)
 
-            key_press(char, 178, 250)
+    key_press(Key.enter, 178, 250)
 
-        key_press(Key.enter, 178, 250)
+    qi['stat'] = 0
 
-        qi['stat'] = 0
+    render()
 
-        render()
+    _SOFT_LOCK = False

@@ -1,6 +1,6 @@
 from .visuals import render
 from .values import op, getTm
-from .helpers import switch, key_press, verify_selected
+from .helpers import switch, key_press, verify_selected, disturbance
 from .selection import random_selection
 
 from pynput.keyboard import Key
@@ -38,15 +38,15 @@ def qi_prot():
     if slc == None or slc == '':
         qi['selected'] = 'Hello beautiful'
 
-    key_press(qi['key_action'], 178, 250)
+    key_press(qi['key_action'], int(qi['.min_delay'] + disturbance()), int(qi['.max_delay'] + disturbance()))
 
     for char in slc:
         if qi['stat'] == 0:
             break
 
-        key_press(char, 178, 250)
+        key_press(char, int(qi['.min_delay'] + disturbance()), int(qi['.max_delay'] + disturbance()))
 
-    key_press(Key.enter, 178, 250)
+    key_press(Key.enter, int(qi['.min_delay'] + disturbance()), int(qi['.max_delay'] + disturbance()))
 
     qi['stat'] = 0
 

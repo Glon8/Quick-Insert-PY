@@ -21,6 +21,9 @@ _OPERATIONS = {
     'qi': {
         'name': 'Quick Insert',
         'note': 'Remember to set Kill Switch on before use!',
+        '.min_delay': 178,
+        '.max_delay': 250,
+        '.max_disturbance': 50,
         '.selected': 0,
         'selected': '',
         'key_action': 't',

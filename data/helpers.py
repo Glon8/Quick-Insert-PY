@@ -24,10 +24,15 @@ def switch(dic, key):
 # key - to press
 # delay - between press and release
 def key_press(key, min_delay, max_delay):
+    if not isinstance(min_delay, int) or not isinstance(max_delay, int):
+        return
+
+    if min_delay > max_delay:
+        min_delay, max_t = max_delay, min_delay
+
     k.press(key)
 
-    timeout = random.randint(min_delay, max_delay) / 1000
-    time.sleep(timeout)
+    timeout(min_delay, max_delay)
 
     k.release(key)
 
@@ -106,7 +111,7 @@ def config_parse_reread(string):
         return
 
     valid_keys = ['display', '.positive_emoji', '.negative_emoji', 'key_trigger', 'key_action',
-                  'random_selection', '.selected']
+                  'random_selection', '.selected', '.min_delay', '.max_delay', '.max_disturbance']
 
     for name, value in config_pack.items():
         for key, val in value.items():
@@ -150,3 +155,23 @@ def state_of(x):
         return None
 
     return x % len(tm)
+
+# ===================================< TIMEOUT (qi)
+def timeout(min_t, max_t):
+    if not isinstance(min_t, int) or not isinstance(max_t, int):
+        return
+
+    if min_t > max_t:
+        min_t, max_t = max_t, min_t
+
+    timeout = random.randint(min_t, max_t) / 1000
+    time.sleep(timeout)
+
+# ===================================< DISTURBANCE (qi)
+def disturbance():
+    qi = op['qi']
+
+    if not qi['.max_disturbance'] or not isinstance(qi['.max_disturbance'], int):
+        qi['.max_disturbance'] = 100
+
+    return random.randint(0, qi['.max_disturbance'])

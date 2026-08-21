@@ -75,6 +75,29 @@ Controls random message selection.
 
 When enabled, Quick-Insert randomly selects a message from `templates.json` instead of allowing the user to manually scroll through the available messages.
 
+### `.[min/max]_delay`
+
+Sets the minimum and maximum delay between individual key presses.
+
+The values are specified in **milliseconds**.
+
+For example:
+
+```text
+min_delay = 100
+max_delay = 500
+```
+
+The delay is randomized between the configured limits.
+
+> **Warning:** Setting the delay too low may result in input being detected as unnatural by some applications or anti-cheat systems.
+
+### `.max_disturbance`
+
+Sets the maximum limit of disturbance between individual key presses.
+
+The values are specified in **milliseconds**.
+
 ## `templates.json` Guide
 
 Add your messages to the template list.
@@ -98,29 +121,6 @@ Multiple messages can be added:
 ```
 
 The configured scrolling keys can then be used to switch between these messages, unless `random_selection` is enabled.
-
-### `[min/max]_delay`
-
-Sets the minimum and maximum delay between individual key presses.
-
-The values are specified in **milliseconds**.
-
-For example:
-
-```text
-min_delay = 100
-max_delay = 500
-```
-
-The delay is randomized between the configured limits.
-
-> **Warning:** Setting the delay too low may result in input being detected as unnatural by some applications or anti-cheat systems.
-
-### `.max_disturbance`
-
-Sets the maximum limit of disturbance between individual key presses.
-
-The values are specified in **milliseconds**.
 
 ## Project Status
 
